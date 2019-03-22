@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imooc.house.mapper.UserMapper">
+    <select id="queryUsers" resultType="user">
+        SELECT id FROM USER
+    </select>
+    <insert id="insert" >
+        INSERT INTO USER
+          (
+            name,
+            phone,
+            email,
+            aboutme,
+            passwd,
+            avatar,
+            type,
+            create_time,
+            enable,
+            agency_id
+          )
+          VALUES
+          (
+          #{name},
+          #{phone},
+          #{email},
+          #{aboutme},
+          #{passwd},
+          #{avatar},
+          #{type},
+          #{createTime},
+          #{enable},
+          #{agencyId}
+          )
+    </insert>
+
+  <delete id="delete">
+    DELETE  FROM  USER  WHERE  email = #{email}
+  </delete>
+
+  <update id="updateByEmail"  parameterType="user">
+    UPDATE USER
+    <trim prefix="set" suffixOverrides=",">
+      <if test="name!=null">NAME=#{name},</if>
+      <if test="email!=null">EMAIL=#{email},</if>
+      <if test="phone!=null">PHONE=#{phone},</if>
+      <if test="aboutme!=null">ABOUTME=#{aboutme},</if>
+      <if test="passwd!=null">PASSWD=#{passwd},</if>
+      <if test="avatar!=null">AVATAR=#{avatar},</if>
+      <if test="type!=null and type!=0">TYPE=#{type},</if>
+      <if test="createTime!=null">CREATE_TIME=#{createTime},</if>
+      <if test="enable!=null">ENABLE=#{enable},</if>
+      <if test="agencyId!=null">AGENCY_ID=#{agencyId},</if>
+    </trim>
+    WHERE EMAIL=#{email}
+  </update>
+
+  <select id="selectUsersByQuery" resultType="user">
+    SELECT
+      ID,
+      NAME,
+      PHONE,
+      EMAIL,
+      ABOUTME,
+      PASSWD,
+      AVATAR,
+      TYPE,
+      CREATE_TIME,
+      ENABLE,
+      AGENCY_ID
+    FROM USER
+    <where>
+      <if test="id != null"> ID = #{id} </if>
+      <if test="name != null"> NAME title = #{name} </if>
+      <if test="phone != null"> AND PHONE = #{phone} </if>
+      <if test="email != null"> AND EMAIL = #{email} </if>
+      <if test="aboutme != null"> AND ABOUTME = #{aboutme} </if>
+      <if test="passwd != null"> AND PASSWD = #{passwd} </if>
+      <if test="avatar != null"> AND AVATAR = #{avatar} </if>
+      <if test="type != null and type!=0"> AND TYPE = #{type} </if>
+      <if test="createTime != null"> AND CREATE_TIME = #{createTime} </if>
+      <if test="enable != null"> AND ENABLE = #{enable} </if>
+      <if test="agencyId != null"> AND AGENCY_ID = #{agencyId} </if>
+    </where>
+  </select>
+  <select id="queryPageUsers" resultType="user">
+    SELECT
+    ID,
+    NAME,
+    PHONE,
+    EMAIL,
+    ABOUTME,
+    PASSWD,
+    AVATAR,
+    TYPE,
+    CREATE_TIME,
+    ENABLE,
+    AGENCY_ID
+    FROM USER
+    <where>
+      <if test="user.id != null"> ID = #{user.id} </if>
+      <if test="user.name != null"> NAME title = #{user.name} </if>
+      <if test="user.phone != null"> AND PHONE = #{user.phone} </if>
+      <if test="user.email != null"> AND EMAIL = #{user.email} </if>
+      <if test="user.aboutme != null"> AND ABOUTME = #{user.aboutme} </if>
+      <if test="user.passwd != null"> AND PASSWD = #{user.passwd} </if>
+      <if test="user.avatar != null"> AND AVATAR = #{user.avatar} </if>
+      <if test="user.type != null and user.type!=0"> AND TYPE = #{user.type} </if>
+      <if test="user.createTime != null"> AND CREATE_TIME = #{user.createTime} </if>
+      <if test="user.enable != null"> AND ENABLE = #{user.enable} </if>
+      <if test="user.agencyId != null"> AND AGENCY_ID = #{user.agencyId} </if>
+    </where>
+    ORDER BY ID DESC
+    <if test="page.offset !=null and page.limit != null">
+      limit #{page.offset}, #{page.limit}
+    </if>
+    <if test="page.offset ==null and page.limit != null">
+      limit #{page.limit}
+    </if>
+  </select>
+  <select id="queryUserCount" resultType="java.lang.Long">
+    SELECT
+    count(1)
+    FROM USER
+    <where>
+      <if test="user.id != null"> ID = #{user.id} </if>
+      <if test="user.name != null"> NAME title = #{user.name} </if>
+      <if test="user.phone != null"> AND PHONE = #{user.phone} </if>
+      <if test="user.email != null"> AND EMAIL = #{user.email} </if>
+      <if test="user.aboutme != null"> AND ABOUTME = #{user.aboutme} </if>
+      <if test="user.passwd != null"> AND PASSWD = #{user.passwd} </if>
+      <if test="user.avatar != null"> AND AVATAR = #{user.avatar} </if>
+      <if test="user.type != null and user.type!=0"> AND TYPE = #{user.type} </if>
+      <if test="user.createTime != null"> AND CREATE_TIME = #{user.createTime} </if>
+      <if test="user.enable != null"> AND ENABLE = #{user.enable} </if>
+      <if test="user.agencyId != null"> AND AGENCY_ID = #{user.agencyId} </if>
+    </where>
+  </select>
+
+</mapper>

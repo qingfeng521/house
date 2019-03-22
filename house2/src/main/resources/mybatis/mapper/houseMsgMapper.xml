@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imooc.house.mapper.HouseMsgMapper">
+    <sql id="houseMsgField">
+        a.id,
+        a.msg,
+        a.create_time,
+        a.agent_id,
+        a.house_id,
+        a.user_id,
+        a.user_name,
+        a.email
+    </sql>
+
+    <sql id="insertKey">
+        <trim suffixOverrides=",">
+            <if test="msg !=null">
+                msg,
+            </if>
+            <if test="createTime !=null">
+                create_time,
+            </if>
+            <if test="agentId !=null">
+                agent_id,
+            </if>
+            <if test="houseId !=null">
+                house_id,
+            </if>
+            <if test="userId !=null">
+                user_id,
+            </if>
+            <if test="userName !=null">
+                user_name,
+            </if>
+            <if test="email !=null">
+                email,
+            </if>
+        </trim>
+    </sql>
+
+    <sql id="insertValue">
+        <trim suffixOverrides=",">
+            <if test="msg!=null">
+                #{msg},
+            </if>
+            <if test="createTime!=null">
+                #{createTime},
+            </if>
+            <if test="agentId!=null">
+                #{agentId},
+            </if>
+            <if test="houseId!=null">
+                #{houseId},
+            </if>
+            <if test="userId!=null">
+                #{userId},
+            </if>
+            <if test="userName!=null">
+                #{userName},
+            </if>
+            <if test="email!=null">
+                #{email},
+            </if>
+        </trim>
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO house_msg
+        (<include refid="insertKey"></include>)
+        VALUES
+        (<include refid="insertValue"></include>)
+    </insert>
+
+    <select id="queryByEntity" resultType="houseMsgEntity">
+        SELECT
+        <include refid="houseMsgField"></include>
+        FROM house_msg a
+        <include refid="houseMsgCondition"></include>
+    </select>
+
+    <sql id="houseMsgCondition">
+        <where>
+            <if test="id != null and id != 0">
+                and a.id = #{id}
+            </if>
+            <if test="msg != null">
+                and a.msg = #{msg}
+            </if>
+            <if test="createTime != null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="agentId != null and agentId != 0">
+                and a.agent_id = #{agentId}
+            </if>
+            <if test="houseId != null and msg != 0">
+                and a.house_id = #{houseId}
+            </if>
+            <if test="userId != null">
+                and a.user_id = #{userId}
+            </if>
+            <if test="userName != null and userName !=''">
+                <bind name="pattern1" value="'%' + userName + '%'"/>
+                and a.user_name like #{pattern1}
+            </if>
+        </where>
+    </sql>
+
+
+</mapper>

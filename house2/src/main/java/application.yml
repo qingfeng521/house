@@ -1,0 +1,49 @@
+server:
+  port: 9090
+spring:
+  #datasource:
+  #  driver-class-name: com.mysql.cj.jdbc.Driver
+  #  username: root
+  #  password: root
+  #  url: jdbc:mysql://127.0.0.1/houses?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+  freemarker:
+    check-template-location: false
+    charset: UTF-8
+    content-type: text/html;charset=UTF-8
+    expose-request-attributes: true
+    expose-session-attributes: true
+    expose-spring-macro-helpers: true
+    suffix: .ftl
+    settings:
+      datetime_format: yyyy-MM-dd HH:mm:ss
+      default_encoding: UTF-8
+      auto_import: common/common.ftl as common
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    #url: jdbc:mysql://127.0.0.1/houses?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1/houses?characterEncoding=UTF-8
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      filters: stat
+      initial-size: 1
+      max-wait: 60000
+      min-idle: 1
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-open-prepared-statements: 2001
+  mail:
+    host: smtp.qq.com
+    username: 648047754@qq.com
+    #qq 邮件授权码
+    password: iiorhzulpwzobehc
+
+mybatis:
+  config-location: classpath:/mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+  type-aliases-package: com.imooc.house.entity  # 注意：对应实体类的路径

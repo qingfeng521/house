@@ -1,0 +1,19 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: api-gateway
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8666/eureka
+    register-with-eureka: false
+
+logbook:
+  write:
+    level: info
+  format:
+    style: curl
+user:
+  ribbon:
+    listOfServers: 127.0.0.1:8083,127.0.0.1.8674

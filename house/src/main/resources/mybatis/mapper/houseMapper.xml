@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imooc.house.mapper.HouseMapper">
+    <sql id="houseField">
+        a.id,
+        a.name,
+        a.type,
+        a.price,
+        a.images,
+        a.areas,
+        a.beds,
+        a.baths,
+        a.rating,
+        a.remarks,
+        a.properties,
+        a.floor_plan,
+        a.tags,
+        a.create_time,
+        a.city_id,
+        a.community_id,
+        a.address,
+        a.state
+    </sql>
+    <sql id="houseCondition">
+        <where>
+            <if test="house.id != null and house.id != 0">
+                and a.id = #{house.id}
+            </if>
+            <if test="house.communityId != null and house.communityId != 0">
+                and a.community_id = #{house.communityId}
+            </if>
+            <if test="house.type != null">
+                and a.type = #{house.type}
+            </if>
+            <if test="house.name != null and house.name !=''">
+                <bind name="pattern1" value="'%' + house.name + '%'"/>
+                and a.name like #{pattern1}
+            </if>
+            <if test="house.ids !=null and house.ids.size !=0">
+                and a.id in
+                <foreach  collection="house.ids" item="item" index="index" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </sql>
+
+    <select id="queryPageList" resultType="houseEntity">
+        SELECT
+        <include refid="houseField"></include>
+        FROM house a
+        <include refid="houseCondition"></include>
+        <choose>
+            <when test="house.sort !=null and house.sort == 'price_asc'" >
+                order by a.price ASC
+            </when>
+            <when test="house.sort !=null and house.sort == 'price_desc'" >
+                order by a.price DESC
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+        <if test="page.offset !=null and page.limit != null">
+            limit #{page.offset}, #{page.limit}
+        </if>
+        <if test="page.offset ==null and page.limit != null">
+            limit #{page.limit}
+        </if>
+    </select>
+
+    <select id="queryPageCount" resultType="java.lang.Long">
+        SELECT
+        count(id)
+        FROM house a
+        <include refid="houseCondition"></include>
+    </select>
+
+    <select id="queryEntityById" resultType="houseEntity">
+        SELECT
+        <include refid="houseField"></include>
+        FROM house a
+        WHERE a.id = #{id}
+    </select>
+
+    <update id="updateById" parameterType="houseEntity">
+        update house
+        <set>
+            <if test="name!=null">
+                name = #{name},
+            </if>
+            <if test="type!=null">
+                type = #{type},
+            </if>
+            <if test="price!=null">
+                price = #{price},
+            </if>
+            <if test="images!=null">
+                images = #{images},
+            </if>
+            <if test="areas!=null">
+                areas = #{areas},
+            </if>
+            <if test="beds!=null">
+                beds = #{beds},
+            </if>
+            <if test="baths!=null">
+                baths = #{baths},
+            </if>
+            <if test="rating!=null">
+                rating = #{rating},
+            </if>
+            <if test="remarks!=null">
+                remarks = #{remarks},
+            </if>
+            <if test="properties!=null">
+                properties = #{properties},
+            </if>
+            <if test="floorPlan!=null">
+                floor_plan = #{floorlan},
+            </if>
+            <if test="tags!=null">
+                tags = #{tags},
+            </if>
+            <if test="createTime!=null">
+                create_time = #{createTime},
+            </if>
+            <if test="cityId !=null">
+                city_id = #{cityId},
+            </if>
+            <if test="communityId !=null">
+                community_id = #{communityId},
+            </if>
+            <if test="address !=null">
+                address = #{address},
+            </if>
+            <if test="state !=null">
+                state = #{state},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="queryCommunity" resultType="community">
+        SELECT
+          ID,
+          city_code,
+          city_name,
+          name
+        FROM community
+        <where>
+            <if test="id != null and id != 0">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="cityCode != null and cityCode != ''">
+                and city_code = #{cityCode}
+            </if>
+            <if test="cityName != null and cityName != ''">
+                and city_name = #{cityName}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryCityList" resultType="cityEntity">
+        SELECT
+            ID,
+            city_code,
+            name,
+            province
+        FROM city
+    </select>
+
+    <sql id="insertKey">
+        <trim suffixOverrides=",">
+            <if test="name!=null">
+                NAME,
+            </if>
+
+            <if test="type!=null">
+                TYPE,
+            </if>
+            <if test="price!=null">
+                price,
+            </if>
+
+            <if test="images!=null">
+                images,
+            </if>
+
+            <if test="areas!=null">
+                areas,
+            </if>
+
+            <if test="beds!=null">
+                beds,
+            </if>
+
+            <if test="baths!=null">
+                baths,
+            </if>
+
+            <if test="rating!=null">
+                rating,
+            </if>
+            <if test="remarks!=null">
+                remarks,
+            </if>
+
+            <if test="properties!=null">
+                properties,
+            </if>
+
+            <if test="floorPlan!=null">
+                floor_plan,
+            </if>
+
+            <if test="tags!=null">
+                tags,
+            </if>
+
+            <if test="createTime!=null">
+                create_time,
+            </if>
+
+            <if test="cityId!=null">
+                city_id,
+            </if>
+
+            <if test="communityId!=null">
+                community_id,
+            </if>
+            <if test="address!=null">
+                address,
+            </if>
+
+            <if test="state!=null">
+                state,
+            </if>
+        </trim>
+    </sql>
+
+    <sql id="insertValue">
+        <trim suffixOverrides=",">
+            <if test="name!=null">
+                #{name},
+            </if>
+
+            <if test="type!=null">
+                #{type},
+            </if>
+
+            <if test="price!=null">
+                #{price},
+            </if>
+
+            <if test="images!=null">
+                #{images},
+            </if>
+
+            <if test="areas!=null">
+                #{areas},
+            </if>
+
+            <if test="beds!=null">
+                #{beds},
+            </if>
+
+            <if test="baths!=null">
+                #{baths},
+            </if>
+
+            <if test="rating!=null">
+                #{rating},
+            </if>
+
+            <if test="remarks!=null">
+                #{remarks},
+            </if>
+
+            <if test="properties!=null">
+                #{properties},
+            </if>
+
+            <if test="floorPlan!=null">
+                #{floorPlan},
+            </if>
+            <if test="tags!=null">
+                #{tags},
+            </if>
+            <if test="createTime!=null">
+                #{createTime},
+            </if>
+
+            <if test="cityId!=null">
+                #{cityId},
+            </if>
+
+            <if test="communityId!=null">
+                #{communityId},
+            </if>
+
+            <if test="address!=null">
+                #{address},
+            </if>
+
+            <if test="state!=null">
+                #{state},
+            </if>
+        </trim>
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO house
+        (<include refid="insertKey"></include>)
+        VALUES
+        (<include refid="insertValue"></include>)
+    </insert>
+
+</mapper>

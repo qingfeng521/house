@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imooc.house.mapper.HouseUserMapper">
+    <sql id="houseField">
+        a.id,
+        a.house_id,
+        a.user_id,
+        a.create_time,
+        a.type
+    </sql>
+    <sql id="houseCondition">
+        <where>
+            <if test="id != null and id != 0">
+                and a.id = #{id}
+            </if>
+            <if test="houseId != null">
+                and a.house_id = #{houseId}
+            </if>
+            <if test="userId != null and userId !=''">
+                and a.user_id = #{userId}
+            </if>
+            <if test="createTime != null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="type != null">
+                and a.type = #{type}
+            </if>
+        </where>
+    </sql>
+
+    <select id="queryByEntity" resultType="houseUserEntity">
+        SELECT
+        <include refid="houseField"></include>
+        FROM house_user a
+        <include refid="houseCondition"></include>
+    </select>
+    <sql id="insertKey">
+        <trim suffixOverrides=",">
+            <if test="houseId !=null">
+                house_id,
+            </if>
+            <if test="userId !=null">
+                user_id,
+            </if>
+            <if test="createTime !=null">
+                create_time,
+            </if>
+            <if test="type !=null">
+                type,
+            </if>
+        </trim>
+    </sql>
+
+    <sql id="insertValue">
+        <trim suffixOverrides=",">
+            <if test="houseId!=null">
+                #{houseId},
+            </if>
+            <if test="userId!=null">
+                #{userId},
+            </if>
+            <if test="createTime!=null">
+                #{createTime},
+            </if>
+            <if test="type!=null">
+                #{type},
+            </if>
+        </trim>
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO house_user
+        (<include refid="insertKey"></include>)
+        VALUES
+        (<include refid="insertValue"></include>)
+    </insert>
+
+    <delete id="deleteByEntity">
+        DELETE FROM house_user
+        <where>
+            <if test="id !=null ">
+                id = #{id}
+            </if>
+            <if test="houseId != null">
+                AND house_id = #{houseId}
+            </if>
+            <if test="userId != null ">
+                AND user_id = #{userId}
+            </if>
+            <if test="createTime != null ">
+                AND create_time = #{createTime}
+            </if>
+            <if test="type != null ">
+                AND type = #{type}
+            </if>
+        </where>
+    </delete>
+
+
+
+</mapper>
