@@ -12,6 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ import java.util.List;
 @EnableDiscoveryClient
 @Controller
 @ComponentScan({"com.imooc.house.api.*"})
+@EnableSwagger2
 //@RibbonClient(name="user",configuration= NewRuleConfig.class)
 public class ApiGatewayApplication {
 
