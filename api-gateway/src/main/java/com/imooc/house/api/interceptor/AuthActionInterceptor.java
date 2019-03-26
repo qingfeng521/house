@@ -1,6 +1,7 @@
-package com.imooc.house.interceptor;
+package com.imooc.house.api.interceptor;
 
-import com.imooc.house.entity.UserEntity;
+
+import com.imooc.house.api.entity.UserEntity;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;

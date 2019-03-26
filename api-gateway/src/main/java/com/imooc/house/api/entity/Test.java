@@ -1,20 +1,10 @@
-package com.imooc.house.entity;
+package com.imooc.house.api.entity;
 
-import com.google.common.collect.Lists;
-import com.oracle.jrockit.jfr.EventInfo;
-
-import java.util.*;
-import java.util.function.BinaryOperator;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
-import static com.imooc.house.entity.Employee.getEmployee;
-import static com.imooc.house.entity.EmployeePredicates.isAdultMale;
-import static com.imooc.house.entity.EmployeePredicates.filterEmployees;
-import static com.imooc.house.entity.EmployeePredicates.isAdultFemale;
-import static com.imooc.house.entity.EmployeePredicates.isAgeMoreThan;
 
 public class Test {
 
@@ -109,10 +99,10 @@ public class Test {
 //            System.out.println(k+"-->"+v);
 //        });
 
-        long count = employees.stream()
+       /* long count = employees.stream()
                 .filter(isAgeMoreThan(20))
-                .count();
-        System.out.println(count);
+                .count();*/
+//        System.out.println(count);/**/
 
 //        Employee shortestTrack = employees.stream()
 //                .min(Comparator.comparing(track -> track.getAge()))

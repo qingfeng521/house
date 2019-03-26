@@ -1,6 +1,7 @@
-package com.imooc.house.interceptor;
+package com.imooc.house.api.interceptor;
 
-import com.imooc.house.entity.UserEntity;
+
+import com.imooc.house.api.entity.UserEntity;
 
 public class UserContext {
     private static final ThreadLocal<UserEntity> USER_LOCAL = new ThreadLocal<UserEntity>();

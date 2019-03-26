@@ -1,4 +1,4 @@
-package com.imooc.house.entity;
+package com.imooc.house.api.entity;
 
 public class Community {
     private Integer id;

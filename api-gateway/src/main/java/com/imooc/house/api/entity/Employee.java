@@ -1,6 +1,4 @@
-package com.imooc.house.entity;
-
-import com.google.common.collect.Lists;
+package com.imooc.house.api.entity;
 
 import java.util.ArrayList;
 import java.util.List;

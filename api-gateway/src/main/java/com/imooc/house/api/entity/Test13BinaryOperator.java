@@ -1,4 +1,4 @@
-package com.imooc.house.entity;
+package com.imooc.house.api.entity;
 
 import java.util.Comparator;
 import java.util.function.BiFunction;

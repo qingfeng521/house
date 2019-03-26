@@ -1,11 +1,6 @@
-package com.imooc.house.entity;
-
-import org.apache.ibatis.type.Alias;
+package com.imooc.house.api.entity;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.swing.plaf.multi.MultiToolTipUI;
-
-@Alias("user")
 public class UserEntity {
     private Long id;
     private String name;
@@ -23,6 +18,16 @@ public class UserEntity {
     private MultipartFile avatarFile;
     private String newPasswd;
     private String key;
+    private String token;
+
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public Long getId() {
         return id;

@@ -1,13 +1,12 @@
-package com.imooc.house.entity;
+package com.imooc.house.api.entity;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
-import com.imooc.house.Constants;
-import org.apache.commons.lang3.StringUtils;
+import com.imooc.house.api.constants.Constants;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class HouseEntity {
 

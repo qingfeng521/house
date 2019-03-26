@@ -1,4 +1,4 @@
-package com.imooc.house.constants;
+package com.imooc.house.api.constants;
 
 public enum HouseUserType {
 

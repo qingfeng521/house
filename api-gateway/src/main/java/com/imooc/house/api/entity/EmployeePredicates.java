@@ -1,4 +1,4 @@
-package com.imooc.house.entity;
+package com.imooc.house.api.entity;
 
 import java.util.List;
 import java.util.function.Predicate;

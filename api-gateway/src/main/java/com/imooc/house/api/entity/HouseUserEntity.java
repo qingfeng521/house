@@ -1,6 +1,4 @@
-package com.imooc.house.entity;
-
-import com.imooc.house.constants.HouseUserType;
+package com.imooc.house.api.entity;
 
 public class HouseUserEntity {
 

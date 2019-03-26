@@ -21,12 +21,12 @@ import java.util.concurrent.Callable;
 @Component
 public  class RestUtils {
 
-    @Autowired
-    private GenericRest genericRest;
+//    @Autowired
+//    private GenericRest genericRest;
 
     private final static Logger LOGGER = LoggerFactory.getLogger(RestUtils.class);
     private static DefaultHander defaultHander = new DefaultHander();
-    public RestUtils(){}
+    private RestUtils(){}
 
     public static <T> T exe (Callable<T> callable){
         T result = sendReq(callable);
@@ -76,36 +76,5 @@ public  class RestUtils {
         }
         return result;
     }
-
-    public <T> T  get(String serviceName, String path,ParameterizedTypeReference<RestResponse<T>> param){
-        Callable<RestResponse<T>> callable = new Callable() {
-            @Override
-            public Object call() throws Exception {
-                String url = toUrl(serviceName,path);
-                ResponseEntity<RestResponse<T>> responseEntity =
-                        genericRest.get(url,param);
-                return responseEntity.getBody();
-            }
-        };
-       return RestUtils.exe(callable).getResult();
-       // return RestUtils.exe(callable)
-        /*return RestUtils.exe(()->{
-            String url = toUrl(serviceName,path);
-            ResponseEntity<RestResponse<T>> responseEntity =
-                    genericRest.get(url,param);
-            return responseEntity.getBody();
-        }).getResult();*/
-    }
-
-    public <T> T  post(String serviceName, String path,Object reqBody,ParameterizedTypeReference<RestResponse<T>> param){
-        return RestUtils.exe(()->{
-            String url = toUrl(serviceName,path);
-            ResponseEntity<RestResponse<T>> responseEntity =
-                    genericRest.post(url,reqBody,param);
-            return responseEntity.getBody();
-        }).getResult();
-    }
-
-
 
 }

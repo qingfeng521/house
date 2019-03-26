@@ -1,4 +1,4 @@
-package com.imooc.house;
+package com.imooc.house.api.constants;
 
 public class Constants {
 
