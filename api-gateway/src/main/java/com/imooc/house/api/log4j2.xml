@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration status="debug">
+    <appenders>
+        <Console name="STDOUT">
+            <!-- 控制台只输出level及以上级别的信息（onMatch）,其他的直接拒绝（onMismatch） -->
+            <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+            <patternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level -%msg%n" charset="UTF-8"/>
+        </Console>
+
+        <RollingRandomAccessFile name="FILE-INFO" fileName="logs/house-info.log" filePattern="logs/house-info.%d{yyyy-MM-dd}.log">
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            <patternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level -%msg%n" charset="UTF-8"/>
+            <TimeBasedTriggeringPolicy interval="1"/>
+            <DefaultRolloverStrategy max="1">
+                <Delete basePath="logs" maxDepth="2">
+                    <IfFileName glob="*house-info.*.log"/>
+                    <IfLastModified age="1d"/>   <!-- 保留一天 -->
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+
+        <RollingRandomAccessFile name="FILE-DEBUG" fileName="logs/house-debug.log" filePattern="logs/house-debug.%d{yyyy-MM-dd}.log">
+            <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+            <patternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level -%msg%n" charset="UTF-8"/>
+            <TimeBasedTriggeringPolicy interval="1"/>
+            <DefaultRolloverStrategy max="1">
+                <Delete basePath="logs" maxDepth="2">
+                    <IfFileName glob="*house-debug.*.log"/>
+                    <IfLastModified age="1d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+
+    </appenders>
+    <loggers>
+        <AsyncLogger name="springfox" level="OFF"></AsyncLogger>
+        <AsyncRoot level="INFO" includeLocation="true">
+            <AppenderRef ref="FILE-INFO"/>
+            <AppenderRef ref="FILE-WARN"/>
+            <AppenderRef ref="FILE-ERROR"/>
+            <AppenderRef ref="STDOUT"/>
+        </AsyncRoot>
+    </loggers>
+
+</configuration>

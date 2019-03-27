@@ -17,3 +17,6 @@ logbook:
 user:
   ribbon:
     listOfServers: 127.0.0.1:8083,127.0.0.1.8674
+management:
+  server:
+    port: 8023
